@@ -4,43 +4,48 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour {
 
+    static float birdSpeed = 10f;
+
     public float speedH = 5.0f;
     public float speedV = 5.0f;
 
     private float yaw = 0.0f;
     private float pitch = 0.0f;
 
+    private Cursor test;
+
     // Use this for initialization
     void Start () {
-        print("this is a test");
-	}
+        
+    }
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKey("w") || Input.GetKey("up"))
+        if (Input.GetKey("w") || Input.GetKey("up") || (Input.GetMouseButton(0) && Input.GetMouseButton(1)))
         {
-            transform.Translate(0, 0, 10f * Time.deltaTime);
+            transform.Translate(0, 0, birdSpeed * Time.deltaTime);
         }
+
         if (Input.GetKey("s") || Input.GetKey("down"))
         {
-            transform.Translate(0, 0, -10f * Time.deltaTime);
+            transform.Translate(0, 0, -birdSpeed * Time.deltaTime);
         }
         if (Input.GetKey("a") || Input.GetKey("left"))
         {
-            transform.Translate(-10f * Time.deltaTime, 0, 0);
+            transform.Translate(-birdSpeed * Time.deltaTime, 0, 0);
         }
         if (Input.GetKey("d") || Input.GetKey("right"))
         {
-            transform.Translate(10f * Time.deltaTime, 0, 0);
+            transform.Translate(birdSpeed * Time.deltaTime, 0, 0);
         }
         if (Input.GetKey("space"))
         {
-            transform.Translate(0, 10f * Time.deltaTime, 0);
+            transform.Translate(0, birdSpeed * Time.deltaTime, 0);
         }
         if (Input.GetKey(KeyCode.LeftControl))
         {
             if (transform.position.y > 1)
-                transform.Translate(0, -10f * Time.deltaTime, 0);
+                transform.Translate(0, -birdSpeed * Time.deltaTime, 0);
         }
 
         if (Input.GetMouseButton(1))
@@ -50,5 +55,15 @@ public class Movement : MonoBehaviour {
 
             transform.eulerAngles = new Vector3(pitch, yaw, 0.0f);
         }
+    }
+
+    public static float GetSpeed()
+    {
+        return birdSpeed;
+    }
+
+    public static void SetSpeed (float value)
+    {
+        birdSpeed = value;
     }
 }
