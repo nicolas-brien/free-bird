@@ -3,16 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Movement : MonoBehaviour {
-
-    static float birdSpeed = 10f;
+    static float speed = 5f;
 
     public float speedH = 5.0f;
     public float speedV = 5.0f;
 
     private float yaw = 0.0f;
     private float pitch = 0.0f;
-
-    private Cursor test;
 
     // Use this for initialization
     void Start () {
@@ -21,49 +18,46 @@ public class Movement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKey("w") || Input.GetKey("up") || (Input.GetMouseButton(0) && Input.GetMouseButton(1)))
+        Move();
+    }
+
+    void Move()
+    {
+        if (Input.GetKey("w") || Input.GetKey("up"))
         {
-            transform.Translate(0, 0, birdSpeed * Time.deltaTime);
+            transform.Translate(0, 0, speed * Time.deltaTime);
         }
 
         if (Input.GetKey("s") || Input.GetKey("down"))
         {
-            transform.Translate(0, 0, -birdSpeed * Time.deltaTime);
+            transform.Translate(0, 0, -speed * Time.deltaTime);
         }
         if (Input.GetKey("a") || Input.GetKey("left"))
         {
-            transform.Translate(-birdSpeed * Time.deltaTime, 0, 0);
+            transform.Translate(-speed * Time.deltaTime, 0, 0);
         }
         if (Input.GetKey("d") || Input.GetKey("right"))
         {
-            transform.Translate(birdSpeed * Time.deltaTime, 0, 0);
+            transform.Translate(speed * Time.deltaTime, 0, 0);
         }
         if (Input.GetKey("space"))
         {
-            transform.Translate(0, birdSpeed * Time.deltaTime, 0);
-        }
-        if (Input.GetKey(KeyCode.LeftControl))
-        {
-            if (transform.position.y > 1)
-                transform.Translate(0, -birdSpeed * Time.deltaTime, 0);
+            transform.Translate(0, speed * Time.deltaTime, 0);
         }
 
-        if (Input.GetMouseButton(1))
-        {
-            yaw += speedH * Input.GetAxis("Mouse X");
-            pitch -= speedV * Input.GetAxis("Mouse Y");
+        yaw += speedH * Input.GetAxis("Mouse X");
+        pitch -= speedV * Input.GetAxis("Mouse Y");
 
-            transform.eulerAngles = new Vector3(pitch, yaw, 0.0f);
-        }
+        transform.eulerAngles = new Vector3(pitch, yaw, 0.0f);
     }
 
     public static float GetSpeed()
     {
-        return birdSpeed;
+        return speed;
     }
 
     public static void SetSpeed (float value)
     {
-        birdSpeed = value;
+        speed = value;
     }
 }

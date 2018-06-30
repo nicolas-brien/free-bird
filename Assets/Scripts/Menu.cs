@@ -16,7 +16,7 @@ public class Menu : MonoBehaviour {
 	void Start() {
         menuCanvas.SetActive(showMenu);
         optionsPanel.SetActive(false);
-        speedSliderInput.text = "10";
+        UpdateSliderInput();
     }
 
     // Update is called once per frame
